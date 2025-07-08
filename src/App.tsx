@@ -4,7 +4,9 @@ import {SnackbarProvider} from "notistack";
 import ThemeModeProvider from "@/components/ThemeModeProvider/ThemeModeProvider.tsx";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import useDarkMode from "@/hooks/useDarkMode.ts";
-import ThemeSwitch from "@/components/ThemeSwitch/ThemeSwitch.tsx";
+import Index from "@/routers";
+import AccountAutoLoader from "@/components/AccountAutoLoader/AccountAutoLoader.tsx";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 const darkTheme = createTheme({
     colorSchemes: {
@@ -16,9 +18,6 @@ const darkTheme = createTheme({
     typography: {
         fontFamily: 'Funnel Display',
     },
-    cssVariables: {
-        colorSchemeSelector: "class"
-    },
 })
 
 const lightTheme = createTheme({
@@ -28,18 +27,13 @@ const lightTheme = createTheme({
     typography: {
         fontFamily: 'Funnel Display',
     },
-    cssVariables: {
-        colorSchemeSelector: "class",
-    }
 })
 
 function App() {
     const { theme } = useDarkMode();
     return (
         <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-            <div className={"w-full h-full flex items-center justify-center"}>
-                <ThemeSwitch />
-            </div>
+            <Index />
         </ThemeProvider>
     )
 }
@@ -50,7 +44,9 @@ function Wrapper() {
     return (
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
                 <SnackbarProvider />
+                <AccountAutoLoader />
                 <ThemeModeProvider>
                     <App />
                 </ThemeModeProvider>

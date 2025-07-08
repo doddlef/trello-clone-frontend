@@ -21,6 +21,9 @@ const darkTheme = createTheme({
 })
 
 const lightTheme = createTheme({
+    colorSchemes: {
+        light: true,
+    },
     palette: {
         mode: 'light',
     },
@@ -29,12 +32,20 @@ const lightTheme = createTheme({
     },
 })
 
-function App() {
+function ThemeStyles({children}: { children: React.ReactNode }) {
     const { theme } = useDarkMode();
     return (
         <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-            <Index />
+            {children}
         </ThemeProvider>
+    )
+}
+
+function App() {
+    return (
+        <ThemeStyles>
+            <Index />
+        </ThemeStyles>
     )
 }
 

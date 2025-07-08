@@ -2,8 +2,13 @@ import {Route, Routes} from "react-router";
 import MainFrame from "@/frames/MainFrame.tsx";
 import Home from "@/pages/Home.tsx";
 import HomeNav from "@/frames/nav/HomeNav.tsx";
-import Login from "@/pages/Login.tsx";
-import SignUp from "@/pages/SignUp.tsx";
+import {lazy, Suspense} from "react";
+import Loading from "@/pages/Loading.tsx";
+import EmailActive from "@/pages/auth/EmailActive.tsx";
+
+const Login = lazy(() => import("../pages/auth/Login.tsx"))
+const SignUp = lazy(() => import("../pages/auth/SignUp.tsx"));
+const SignUpSuccess = lazy(() => import("../pages/auth/SignUpSuccess.tsx"));
 
 function IndexRouter() {
     return (
@@ -11,8 +16,26 @@ function IndexRouter() {
             <Route element={<MainFrame />}>
                 <Route element={<HomeNav />}>
                     <Route index element={<Home />} />
-                    <Route path={"/login/*"} element={<Login />} />
-                    <Route path={"/sign-up/*"} element={<SignUp />} />
+                    <Route path={"/login/*"} element={
+                        <Suspense fallback={<Loading />}>
+                            <Login />
+                        </Suspense>
+                    } />
+                    <Route path={"/sign-up"}>
+                        <Route index element={
+                            <Suspense fallback={<Loading />}>
+                                <SignUp />
+                            </Suspense>
+                        } />
+                        <Route path={"success/*"} element={
+                            <Suspense fallback={<Loading />}>
+                                <SignUpSuccess />
+                            </Suspense>
+                        } />
+                    </Route>
+                    <Route path={"/email/active/*"} element={
+                        <EmailActive />
+                    } />
                 </Route>
             </Route>
         </Routes>

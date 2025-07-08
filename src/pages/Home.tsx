@@ -21,6 +21,7 @@ function Home() {
                     flexDirection: "column",
                     justifyContent: "center",
                     gap: 3,
+                    color: "text.primary",
                 }}
             >
                 <Typography variant={"h4"} fontFamily={"Sour Gummy"}>

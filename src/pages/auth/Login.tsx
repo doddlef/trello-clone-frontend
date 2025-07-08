@@ -1,4 +1,3 @@
-import Paper from "@mui/material/Paper";
 import {emailPasswordAuth, type EmailPasswordAuthParams} from "@/actions/user.ts";
 import {Controller, useForm} from "react-hook-form";
 import * as React from "react";
@@ -17,44 +16,30 @@ import { motion } from "framer-motion";
 import Button from "@mui/material/Button";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
+import AuthFormLayout from "@/layouts/AuthFormLayout.tsx";
 
 function Login() {
     return (
-        <div className={"w-full h-full flex justify-center items-center"}>
-            <Paper
-                elevation={2}
-                className={"border-gray-300 dark:border-gray-600"}
-                sx={{
-                    padding: "8px 12px",
-                    borderRadius: 2,
-                    borderWidth: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: 2,
-                    width: 380,
-                }}
+        <AuthFormLayout>
+            <Typography
+                variant={"h5"}
+                color={"primary"}
+                fontFamily={"Sour Gummy"}
             >
-                <Typography
-                    variant={"h5"}
-                    color={"primary"}
-                    fontFamily={"Sour Gummy"}
-                >
-                    TaskBoard
-                </Typography>
-                <Divider flexItem />
-                <Button color={"info"} variant={"contained"} className={"w-full"} startIcon={<GitHubIcon />}>
-                    Continue with GitHub
-                </Button>
-                <Button color={"info"} variant={"contained"} className={"w-full"} startIcon={<GoogleIcon />}>
-                    Continue with Google
-                </Button>
-                <Divider variant={"middle"} flexItem>
-                    <Typography variant={"caption"}>OR</Typography>
-                </Divider>
-                <LoginForm />
-            </Paper>
-        </div>
+                TaskBoard
+            </Typography>
+            <Divider flexItem />
+            <Button color={"info"} variant={"contained"} className={"w-full"} startIcon={<GitHubIcon />}>
+                Continue with GitHub
+            </Button>
+            <Button color={"info"} variant={"contained"} className={"w-full"} startIcon={<GoogleIcon />}>
+                Continue with Google
+            </Button>
+            <Divider variant={"middle"} flexItem>
+                <Typography variant={"caption"}>OR</Typography>
+            </Divider>
+            <LoginForm />
+        </AuthFormLayout>
     )
 }
 
@@ -69,7 +54,7 @@ function LoginForm() {
     const navigate = useNavigate();
     const { setAccount } = useAccount();
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: emailPasswordAuth,
         onSuccess: (res) => {
             if (res.code === ResponseCode.SUCCESS && res.data) {
@@ -183,7 +168,7 @@ function LoginForm() {
                     </Typography>
                 </Link>
             </div>
-            <Button fullWidth type={"submit"}>
+            <Button fullWidth type={"submit"} loading={isPending} variant={"outlined"}>
                 Log in
             </Button>
         </form>

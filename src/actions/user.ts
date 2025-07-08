@@ -1,5 +1,5 @@
 import type {ApiResponse} from "@/actions/response.ts";
-import {refreshableResponse} from "@/actions/api.ts";
+import {getUrl, refreshableResponse} from "@/actions/api.ts";
 
 export type AccountRole = "ADMIN" | "USER"
 
@@ -23,7 +23,7 @@ export type EmailPasswordAuthResponse = ApiResponse & {
 }
 
 export function emailPasswordAuth({ email, password }: EmailPasswordAuthParams): Promise<EmailPasswordAuthResponse> {
-    return fetch("/api/auth", {
+    return fetch(getUrl("/api/auth"), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -51,7 +51,7 @@ export function getAccountInfo(): Promise<GetAccountInfoResponse> {
 
 // logout
 export function logout(): Promise<ApiResponse> {
-    return fetch("/api/auth/logout", {
+    return fetch(getUrl("/api/auth/logout"), {
         method: "POST",
         credentials: "include",
     }).then(response => response.json());
@@ -73,7 +73,7 @@ export type EmailPasswordRegisterResponse = ApiResponse & {
 export function emailPasswordRegister(
     { email, password, nickname }: EmailPasswordRegisterParams
 ): Promise<EmailPasswordRegisterResponse> {
-    return fetch("/api/auth/register", {
+    return fetch(getUrl("/api/auth/register"), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -99,8 +99,8 @@ export type EmailActiveResponse = ApiResponse & {
 }
 
 export function emailActive({ token }: EmailActiveParams): Promise<EmailActiveResponse> {
-    return fetch("/api/auth/active-email", {
-        method: "POST",
+    return fetch(getUrl("/api/auth/active-email"), {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
@@ -119,7 +119,7 @@ export type ResendActivationEmailResponse = ApiResponse & {
 }
 
 export function resendActivationEmail(email: string): Promise<ResendActivationEmailResponse> {
-    return fetch(`/api/auth/resend-email-token?email=${email}`, {
+    return fetch(getUrl(`/api/auth/resend-email-token?email=${email}`), {
         method: "GET",
         credentials: "include",
     }).then(response => response.json());

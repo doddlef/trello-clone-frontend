@@ -1,11 +1,11 @@
 import {BrowserRouter} from "react-router";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {SnackbarProvider} from "notistack";
-import ThemeModeProvider from "@/components/ThemeModeProvider/ThemeModeProvider.tsx";
+import ThemeModeProvider from "@/components/wrapper/ThemeModeProvider.tsx";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import useDarkMode from "@/hooks/useDarkMode.ts";
 import Index from "@/routers";
-import AccountAutoLoader from "@/components/AccountAutoLoader/AccountAutoLoader.tsx";
+import AccountAutoLoader from "@/components/wrapper/AccountAutoLoader.tsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 const darkTheme = createTheme({

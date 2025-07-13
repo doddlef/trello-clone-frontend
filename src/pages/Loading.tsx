@@ -4,7 +4,7 @@ const array = ['L', 'o', 'a', 'd', '.', '.', '.']
 
 function Loading() {
     return (
-        <div className={"w-full h-full flex items-center justify-center"}>
+        <div className={"w-screen h-screen max-w-full max-h-full flex items-center justify-center"}>
             <div className={"flex justify-center gap-4"}>
                 {
                     array.map((s, i) => (

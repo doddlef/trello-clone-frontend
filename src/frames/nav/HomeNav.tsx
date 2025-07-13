@@ -1,8 +1,8 @@
 import Paper from "@mui/material/Paper";
 import {Link, Navigate, Outlet} from "react-router";
-import ProjectIcon from "@/components/ProjectIcon/ProjectIcon.tsx";
+import ProjectIcon from "@/components/icon/ProjectIcon.tsx";
 import Button from "@mui/material/Button";
-import ThemeSwitch from "@/components/ThemeSwitch/ThemeSwitch.tsx";
+import ThemeSwitch from "@/components/common/ThemeSwitch.tsx";
 import useAccount from "@/store/useAccount.ts";
 import Loading from "@/pages/Loading.tsx";
 import Typography from "@mui/material/Typography";
